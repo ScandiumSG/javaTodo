@@ -1,4 +1,4 @@
-package todo;
+package todo.program;
 
 public class Greeter {
 
