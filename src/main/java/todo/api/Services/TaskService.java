@@ -42,7 +42,7 @@ public class TaskService {
      * @return The created task
      */
     public Task createTask(Task task) {
-        Task createdTask = taskRepo.save(task);
+        Task createdTask = taskRepo.saveAndFlush(task);
 
         return createdTask;
     }
@@ -56,8 +56,8 @@ public class TaskService {
         Optional<Task> retrievedTask = taskRepo.findById(task.getId());
 
         if (retrievedTask.isPresent()) {
-            task.setId(retrievedTask.get().getId());
-            return task;
+            Task returnTask = taskRepo.saveAndFlush(task);
+            return returnTask;
         } else {
             return null;
         }

@@ -9,27 +9,34 @@ services:
       dockerfile: ./DOCKERFILE
     ports:
       - "8080:8080"
-    depends_on:
-      - db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/todolist_db
-      - SPRING_DATASOURCE_USERNAME=user
-      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      db:
+        condition: service_healthy
 
   db:
-    image: "postgres"
+    image: postgres:16
     container_name: "postgresDB"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=todolist_db
     volumes:
-        - './.containers/quiz-data:/var/lib/postgresql/data'
-    logging:
-      driver: none  # Disable logging for the PostgreSQL service
+        - './.containers/data:/var/lib/postgresql/data'
+    ports: 
+      - 5432:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 volumes:
   postgres_data:
