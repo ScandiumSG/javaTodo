@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,33 +42,33 @@ public class TaskController {
 
 
     @GetMapping("/task/{id}")
-    public TaskItem taskItem(@PathVariable("id") int id) {
+    public ResponseEntity<TaskItem> taskItem(@PathVariable("id") int id) {
         for (TaskItem item : this.allTasks) {
             if (item.id() == id) {
                 logger.info("Sent TaskItem: {}", item);
-                return item;
+                return new ResponseEntity<TaskItem>(item, HttpStatus.OK);
             }
         }
-        return noTask;
+        return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/tasks")
-    public TaskList taskList() {
+    public ResponseEntity<TaskList> taskList() {
         logger.info("Sent TaskList: {}", this.allTasks);
-        return new TaskList(this.allTasks);
+        return new ResponseEntity<TaskList>(new TaskList(this.allTasks), HttpStatus.OK);
     }
 
     @PostMapping("/task")
-    public TaskItem createTask(@RequestBody TodoTask newTask) {
+    public ResponseEntity<TaskItem> createTask(@RequestBody TodoTask newTask) {
         try {
             logger.info("Received TodoTask: {}", newTask);
 
             TaskItem newTaskItem = new TaskItem(counter++, newTask.getTitle(), newTask.getDescription());
             this.allTasks.add(newTaskItem);
-            return newTaskItem;
+            return new ResponseEntity<TaskItem>(newTaskItem, HttpStatus.OK);
         } catch (Error e) {
             logger.error("Error creating task: {}", e.getMessage());
-            throw new IllegalArgumentException("Invalid task fields provided");
+            return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
         }
     }
 
