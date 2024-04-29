@@ -1,4 +1,4 @@
-package todo.api;
+package todo.api.Controllers;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
@@ -14,15 +14,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
-import todo.api.Models.TodoTask;
-import todo.api.Models.TaskItem;
-import todo.api.Models.TaskList;
+import todo.api.Models.DTOs.TaskItem;
+import todo.api.Models.DTOs.TaskList;
+import todo.api.Models.DTOs.TodoTask;
 
 @RestController
+@RequestMapping("/task/v1")
 public class TaskController {
     
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
@@ -42,7 +44,7 @@ public class TaskController {
     }
 
 
-    @GetMapping("/task/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<TaskItem> taskItem(@PathVariable("id") int id) {
         for (TaskItem item : this.allTasks) {
             if (item.id() == id) {
@@ -53,13 +55,14 @@ public class TaskController {
         return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/tasks")
+    @GetMapping("/all")
     public ResponseEntity<TaskList> taskList() {
-        logger.info("Sent TaskList: {}", this.allTasks);
-        return new ResponseEntity<TaskList>(new TaskList(this.allTasks), HttpStatus.OK);
+        TaskList tasks = TaskList(new ArrayList<>(this.allTasks));
+        logger.info("Sent TaskList: {}", tasks);
+        return new ResponseEntity<TaskList>(tasks, HttpStatus.OK);
     }
 
-    @PostMapping("/task")
+    @PostMapping("/")
     public ResponseEntity<TaskItem> createTask(@RequestBody TodoTask newTask) {
         try {
             logger.info("Received TodoTask: {}", newTask);
@@ -73,7 +76,7 @@ public class TaskController {
         }
     }
 
-    @PutMapping("/task/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<TaskItem> updateTask(@RequestBody TodoTask updatedTask, @PathVariable("id") Integer id) {
         try {
             logger.info("Recieved update to task {}, new task: {}", id, updatedTask);
@@ -105,7 +108,7 @@ public class TaskController {
         }
     }
 
-    @DeleteMapping("/task/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<TaskItem> deleteTask(@PathVariable("id") Integer id) {
         try {
             logger.info("Deleting task with id: {}", id);

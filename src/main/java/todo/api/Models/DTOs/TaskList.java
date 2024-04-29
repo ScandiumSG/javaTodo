@@ -1,4 +1,4 @@
-package todo.api.Models;
+package todo.api.Models.DTOs;
 
 import java.util.ArrayList;
 
