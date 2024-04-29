@@ -5,10 +5,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +68,38 @@ public class TaskController {
         } catch (Error e) {
             logger.error("Error creating task: {}", e.getMessage());
             throw new IllegalArgumentException("Invalid task fields provided");
+        }
+    }
+
+    @PutMapping("/task/{id}")
+    public ResponseEntity<TaskItem> updateTask(@RequestBody TodoTask updatedTask, @PathVariable("id") Integer id) {
+        try {
+            logger.info("Recieved update to task {}, new task: {}", id, updatedTask);
+
+            TaskItem updateTask = null;
+            for (TaskItem task: allTasks) {
+                if (task.id() == id) {
+                    updateTask = task;
+                    break;
+                }
+            }
+
+            if (updateTask == null) {
+                logger.error("Attempted to update task with id {}, none found", id);
+                return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
+            }
+
+            // Make new TaskItem record 
+            TaskItem recordToUpdate = new TaskItem(id, updatedTask.getTitle(), updatedTask.getDescription());
+
+            // Insert the new TaskItem record
+            allTasks.set(allTasks.indexOf(updateTask), recordToUpdate);
+
+            return new ResponseEntity<TaskItem>(recordToUpdate, HttpStatus.CREATED);
+
+        } catch (Error e) {
+            logger.error("Error updating task: {}", e.getMessage());
+            throw new IllegalArgumentException("Invalid task properties provided");
         }
     }
 }
