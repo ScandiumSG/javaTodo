@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'docker-spring-boot-postgres'
+    container_name: "springboot_backend"
+    build:
+      context: .
+      dockerfile: ./DOCKERFILE
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/todolist_db
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: "postgres"
+    container_name: "postgresDB"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=todolist_db
+    volumes:
+        - './.containers/quiz-data:/var/lib/postgresql/data'
+    logging:
+      driver: none  # Disable logging for the PostgreSQL service
+
+volumes:
+  postgres_data:
+    driver: local

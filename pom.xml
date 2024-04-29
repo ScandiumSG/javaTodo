@@ -29,12 +29,32 @@
             <version>3.2.5</version>
 		</dependency>
 
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
             <version>3.2.5</version>
 			<scope>test</scope>
 		</dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.5.0.Final</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -43,6 +63,24 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.2.5</version>
+                <executions>
+                    <execution>
+                        <id>executable-jar</id>
+                        <phase>install</phase>
+
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+
+                        <configuration>
+                        <executable>true</executable>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>todo.api.RestServiceApplication</mainClass>
+                    <layout>JAR</layout>
+                </configuration>
 			</plugin>
             <plugin>
             <groupId>org.apache.maven.plugins</groupId>
