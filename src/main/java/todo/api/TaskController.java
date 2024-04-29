@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -101,6 +102,37 @@ public class TaskController {
         } catch (Error e) {
             logger.error("Error updating task: {}", e.getMessage());
             throw new IllegalArgumentException("Invalid task properties provided");
+        }
+    }
+
+    @DeleteMapping("/task/{id}")
+    public ResponseEntity<TaskItem> deleteTask(@PathVariable("id") Integer id) {
+        try {
+            logger.info("Deleting task with id: {}", id);
+
+            TaskItem itemToDelete = null;
+            for (TaskItem task: allTasks) {
+                if (task.id() == id) {
+                    itemToDelete = task;
+                    break;
+                }
+            }
+
+            if (itemToDelete == null) {
+                logger.error("Could not find item with id: {}", id);
+                return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
+            }
+
+            boolean deletedTask = this.allTasks.remove(itemToDelete);
+            if (deletedTask) {
+                return new ResponseEntity<TaskItem>(itemToDelete, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<TaskItem>(HttpStatus.BAD_REQUEST);
+            }
+
+        } catch (Error e) {
+            logger.error("Error deleting task: {}", e.getMessage());
+            return new ResponseEntity<TaskItem>(HttpStatus.BAD_REQUEST);
         }
     }
 }
