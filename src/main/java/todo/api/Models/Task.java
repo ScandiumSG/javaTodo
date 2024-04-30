@@ -17,10 +17,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "task")
 public class Task {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", updatable = true, nullable = true, unique = true)
+    @Column(name="id", updatable = false, nullable = true, unique = true)
     private Integer id;
 
     @Column(name="title", updatable = true, nullable = true)

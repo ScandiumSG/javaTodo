@@ -1,16 +1,20 @@
 package todo.api.Services;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import todo.api.Models.Task;
 import todo.api.Repository.TaskRepo;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TaskService {
     private final TaskRepo taskRepo;
 
@@ -19,7 +23,12 @@ public class TaskService {
      * @return List of Task objects
      */
     public List<Task> getAllTasks() {
-        return taskRepo.findAll();
+        List<Task> tasks = taskRepo.findAll();
+        List<Task> sortedTask = tasks.stream()
+            .sorted(Comparator.comparing(Task::getId))
+            .collect(Collectors.toList());
+
+        return sortedTask;
     }
 
     /**
@@ -53,10 +62,17 @@ public class TaskService {
      * @return The updated task, null if no task of provided taskId exists
      */
     public Task updateTask(Task task) {
-        Optional<Task> retrievedTask = taskRepo.findById(task.getId());
+        Optional<Task> findTask = taskRepo.findById(task.getId());
+        log.debug("Retrieved object: {}", findTask.get());
+        if (findTask.isPresent()) {
+            Task retrievedTask = findTask.get();
 
-        if (retrievedTask.isPresent()) {
-            Task returnTask = taskRepo.saveAndFlush(task);
+            retrievedTask.setTitle(task.getTitle());
+            retrievedTask.setDescription(task.getDescription());
+            log.debug("Updated values of: {}", retrievedTask);
+
+            Task returnTask = taskRepo.saveAndFlush(retrievedTask);
+            log.debug("Saved values of: {}", returnTask);
             return returnTask;
         } else {
             return null;

@@ -15,8 +15,8 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Insert seed data
-        Task task1 = new Task(1, "Task 1", "Task Description");
-        Task task2 = new Task(2, "Task 2", "I need to write more tasks");
+        Task task1 = new Task(1, "Hygiene", "Take a shower and brush your teeth");
+        Task task2 = new Task(2, "Chores", "Load and start the dishwasher");
 
         taskRepo.save(task1);
         taskRepo.save(task2);

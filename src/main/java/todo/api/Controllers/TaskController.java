@@ -57,7 +57,7 @@ public class TaskController {
 
     @GetMapping("/all")
     public ResponseEntity<TaskList> taskList() {
-        TaskList tasks = TaskList(new ArrayList<>(this.allTasks));
+        TaskList tasks = new TaskList(new ArrayList<TaskItem>(this.allTasks));
         logger.info("Sent TaskList: {}", tasks);
         return new ResponseEntity<TaskList>(tasks, HttpStatus.OK);
     }
@@ -65,10 +65,9 @@ public class TaskController {
     @PostMapping("/")
     public ResponseEntity<TaskItem> createTask(@RequestBody TodoTask newTask) {
         try {
-            logger.info("Received TodoTask: {}", newTask);
-
             TaskItem newTaskItem = new TaskItem(counter++, newTask.getTitle(), newTask.getDescription());
             this.allTasks.add(newTaskItem);
+            logger.info("Created Task: {}", newTask);
             return new ResponseEntity<TaskItem>(newTaskItem, HttpStatus.OK);
         } catch (Error e) {
             logger.error("Error creating task: {}", e.getMessage());
@@ -79,8 +78,6 @@ public class TaskController {
     @PutMapping("/{id}")
     public ResponseEntity<TaskItem> updateTask(@RequestBody TodoTask updatedTask, @PathVariable("id") Integer id) {
         try {
-            logger.info("Recieved update to task {}, new task: {}", id, updatedTask);
-
             TaskItem updateTask = null;
             for (TaskItem task: allTasks) {
                 if (task.id() == id) {
@@ -99,6 +96,8 @@ public class TaskController {
 
             // Insert the new TaskItem record
             allTasks.set(allTasks.indexOf(updateTask), recordToUpdate);
+
+            logger.error("Updated task: {}", recordToUpdate);
 
             return new ResponseEntity<TaskItem>(recordToUpdate, HttpStatus.CREATED);
 

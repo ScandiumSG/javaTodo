@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import todo.api.Models.Task;
 import todo.api.Services.TaskService;
 
@@ -20,6 +21,7 @@ import todo.api.Services.TaskService;
 @RequestMapping("/task/v2")
 @RequiredArgsConstructor
 @Validated
+@Slf4j
 public class ConnectedTaskController {
     private final TaskService taskService;
 
@@ -27,6 +29,7 @@ public class ConnectedTaskController {
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> retrievedTasks = taskService.getAllTasks();
         if (retrievedTasks.size() != 0) {
+            log.info("Retrieved {} tasks", retrievedTasks.size());
             return ResponseEntity.ok().body(retrievedTasks);
         } else {
             return ResponseEntity.noContent().build();
@@ -38,6 +41,7 @@ public class ConnectedTaskController {
         Task retrievedTask = taskService.getTask(id);
 
         if (retrievedTask != null) {
+            log.info("Retrieved task: {}", retrievedTask);
             return ResponseEntity.ok().body(retrievedTask);
         } else {
             return ResponseEntity.notFound().build();
@@ -46,9 +50,9 @@ public class ConnectedTaskController {
 
     @PostMapping("/")
     public ResponseEntity<Task> createTask(@RequestBody Task postTask) {
-        System.out.println(postTask);
         Task createdTask = taskService.createTask(postTask);
         if (createdTask != null) {
+            log.info("Created task: {}", createdTask);
             return ResponseEntity.ok().body(createdTask);
         } else {
             return ResponseEntity.badRequest().build();
@@ -60,6 +64,7 @@ public class ConnectedTaskController {
         Task updatedTask = taskService.updateTask(putTask);
 
         if (updatedTask != null) {
+            log.info("Updated task with id {}: {}", updatedTask.getId(), putTask);
             return ResponseEntity.ok().body(updatedTask);
         } else {
             return ResponseEntity.notFound().build();
@@ -69,6 +74,7 @@ public class ConnectedTaskController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Integer id) {
         taskService.deleteTask(id);
+        log.info("Deleted task with id: {}", id);
         return ResponseEntity.ok().body(String.format(String.format("Deleted task with ID %d", id)));
     }
 }
