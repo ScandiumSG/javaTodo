@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Task } from '../../utils/interfaces';
 
 @Component({
   selector: 'app-task-item',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './task-item.component.css'
 })
 export class TaskItemComponent {
+  @Input() task : Task | undefined;
 
+  constructor() {
+    console.log(this.task?.completed);
+  }
 }

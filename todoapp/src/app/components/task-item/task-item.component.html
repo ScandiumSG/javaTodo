@@ -1,1 +1,8 @@
-<p>task-item works!</p>
+<div>
+    <h3>{{task?.title}}</h3>
+    <div>
+        <span>{{task?.description}}</span>
+        <input type="checkbox" [checked]="task?.completed"/>
+        <p>Updated at: {{task?.updatedAt}}</p>
+    </div>
+</div>
