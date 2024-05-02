@@ -1,12 +1,9 @@
 package todo.api.Controllers;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import jakarta.servlet.http.HttpServletRequest;
 import todo.api.Models.DTOs.TaskItem;
 import todo.api.Models.DTOs.TaskList;
 import todo.api.Models.DTOs.TodoTask;
@@ -32,7 +26,6 @@ public class TaskController {
     private static final String titleTemplate = "I did a thing";
     private static final String descriptionTemplate = "I did the thing by first doing a thing then another thing.";
     private int counter = 0;
-    private TaskItem noTask = new TaskItem(-1, "Invalid", "No task of provided ID could be found.");
     private TaskItem task1 = new TaskItem(counter++, titleTemplate, descriptionTemplate);
     private TaskItem task2 = new TaskItem(counter++, titleTemplate, descriptionTemplate);
 
