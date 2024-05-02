@@ -1,0 +1,12 @@
+FROM amazoncorretto:22 as builder
+WORKDIR /app
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:go-offline
+COPY ./src ./src
+RUN ./mvnw clean install
+
+FROM amazoncorretto:22 as initialize
+VOLUME /tmp
+COPY ./api/target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
