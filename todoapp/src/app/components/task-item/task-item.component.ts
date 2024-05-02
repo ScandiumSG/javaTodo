@@ -10,8 +10,4 @@ import { Task } from '../../utils/interfaces';
 })
 export class TaskItemComponent {
   @Input() task : Task | undefined;
-
-  constructor() {
-    console.log(this.task?.completed);
-  }
 }

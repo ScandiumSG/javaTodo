@@ -3,6 +3,7 @@ package todo.api.Controllers;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import todo.api.Services.TaskService;
 public class ConnectedTaskController {
     private final TaskService taskService;
 
+    @CrossOrigin
     @GetMapping("/")
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> retrievedTasks = taskService.getAllTasks();
@@ -36,6 +38,7 @@ public class ConnectedTaskController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<Task> getTask(@PathVariable Integer id) {
         Task retrievedTask = taskService.getTask(id);
@@ -48,6 +51,7 @@ public class ConnectedTaskController {
         }
     }
 
+    @CrossOrigin
     @PostMapping("/")
     public ResponseEntity<Task> createTask(@RequestBody Task postTask) {
         Task createdTask = taskService.createTask(postTask);
@@ -59,6 +63,7 @@ public class ConnectedTaskController {
         }
     }
 
+    @CrossOrigin
     @PutMapping("/")
     public ResponseEntity<Task> updateTask(@RequestBody Task putTask) {
         Task updatedTask = taskService.updateTask(putTask);
@@ -71,6 +76,7 @@ public class ConnectedTaskController {
         }
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Integer id) {
         taskService.deleteTask(id);

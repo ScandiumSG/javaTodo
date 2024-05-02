@@ -1,12 +1,28 @@
-version: '3.8'
-
 services:
+  web_server:
+    image: "docker-angular_todo"
+    container_name: "angular_frontend"
+    build:
+      context: ./todoapp/
+      dockerfile: ./DOCKERFILE
+    command: "npm run dockerstart"
+    ports: 
+      - "4200:4200"
+    volumes:
+      - "todoapp:/todoapp"
+      - "node_modules:/todoapp/node_modules"
+    depends_on:
+      springboot_api:
+        condition: service_healthy
+    networks:
+      - frontend
+
   springboot_api:
-    image: 'docker-spring-boot-postgres'
+    image: 'docker-springboot_todo'
     container_name: "springboot_backend"
     build:
-      context: .
-      dockerfile: ./api/DOCKERFILE
+      context: ./api/
+      dockerfile: ./DOCKERFILE
     ports:
       - "8080:8080"
     environment:
@@ -20,6 +36,7 @@ services:
       postgresdatabase:
         condition: service_healthy
     networks: 
+      - frontend
       - backend
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
@@ -49,10 +66,17 @@ services:
       start_period: 20s
 
 networks:
+  frontend:
+    name: backend_connection_network
+    driver: bridge
   backend: 
-    name: backend_bridge_network
+    name: database_connection_network
     driver: bridge
 
 volumes:
+  todoapp:
+    driver: local
+  node_modules:
+    driver: local
   postgres_data:
     driver: local
