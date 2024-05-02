@@ -1,5 +1,8 @@
 package todo.api.Services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +54,9 @@ public class TaskService {
      * @return The created task
      */
     public Task createTask(Task task) {
+        task.setCreatedAt(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        task.setUpdatedAt(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+
         Task createdTask = taskRepo.saveAndFlush(task);
 
         return createdTask;
@@ -69,6 +75,9 @@ public class TaskService {
 
             retrievedTask.setTitle(task.getTitle());
             retrievedTask.setDescription(task.getDescription());
+            retrievedTask.setCompleted(task.isCompleted());
+            retrievedTask.setUpdatedAt(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+
             log.debug("Updated values of: {}", retrievedTask);
 
             Task returnTask = taskRepo.saveAndFlush(retrievedTask);
@@ -77,6 +86,11 @@ public class TaskService {
         } else {
             return null;
         }
+    }
+
+    public Task updateTask(int id) {
+        Optional<Task> findTask = taskRepo.findById(id);
+        return updateTask(findTask.get());
     }
 
     public void deleteTask(Integer id) {

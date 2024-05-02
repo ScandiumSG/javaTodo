@@ -1,5 +1,9 @@
 package todo.api.Models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,8 +32,22 @@ public class Task {
     @Column(name="description", updatable = true, nullable = true)
     private String description;
 
-    public Task(String title, String description) {
+    @Column(name="task_complete", updatable = true, nullable = false)
+    private boolean completed;
+    
+    @Column(name="created_at", updatable = false, nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name="updated_at", updatable = true, nullable = false)
+    private LocalDateTime updatedAt;
+
+    public Task(String title, String description, boolean complete) {
         this.title = title;
         this.description = description;
+        this.completed = complete;
+    }
+
+    public Task(String title, String description) {
+        this(title, description, false);
     }
 }
