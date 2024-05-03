@@ -1,8 +1,6 @@
-<div>
-    <h3>{{task?.title}}</h3>
-    <div>
-        <span>{{task?.description}}</span>
-        <input type="checkbox" [checked]="task?.completed"/>
-        <p>Updated at: {{task?.updatedAt}}</p>
-    </div>
+<h3 class="task-item-header">{{task?.title}}</h3>
+<span>{{task?.description}}</span>
+<input type="checkbox" [checked]="task?.completed"/>
+<div class="task-item-update-timestamp">
+    Updated at: {{task?.updatedAt}}
 </div>

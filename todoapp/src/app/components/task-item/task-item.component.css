@@ -1,0 +1,10 @@
+.task-item-update-timestamp {
+    font-size: 10px;
+
+    justify-content: left;
+
+    display: flex;
+    position: absolute;
+    top: 85%;
+    left: 2%;
+}

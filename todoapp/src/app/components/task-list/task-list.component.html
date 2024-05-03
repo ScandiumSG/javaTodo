@@ -1,5 +1,3 @@
-<div>
-    <ul>
-        <app-task-item [task]="task" *ngFor="let task of dataList"/>
-    </ul>
+<div class="task-list-container">
+    <app-task-item class="task-list-item" [task]="task" *ngFor="let task of dataList"/>
 </div>
