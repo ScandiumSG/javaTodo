@@ -1,0 +1,41 @@
+.post-item-show-button {
+    width: 70px;
+    height: 70px;
+}
+
+.post-task-container {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.post-task-container-title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.post-task-input-container {
+    width: 100%;
+
+    display: flex;
+
+    margin-bottom: 5px;
+}
+
+.post-task-input-container > span {
+    width: 100px;
+}
+
+.post-task-input-container > input {
+    width: calc(100% - 125px);
+}
+
+.post-task-submit-button {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+}

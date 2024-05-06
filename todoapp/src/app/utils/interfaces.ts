@@ -6,3 +6,8 @@ export interface Task {
     updatedAt: string,
     completed: boolean,
   }
+
+export interface PostTask {
+  title: string,
+  description: string
+}

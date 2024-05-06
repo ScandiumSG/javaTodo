@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Task } from '../../utils/interfaces';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { DataUtilService } from '../../services/data-util.service';
+import { PostTaskComponent } from '../post-task/post-task.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, TaskItemComponent],
+  imports: [CommonModule, TaskItemComponent, PostTaskComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css',
   providers: [DataFetcherService]
