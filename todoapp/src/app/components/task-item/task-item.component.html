@@ -1,6 +1,9 @@
-<h3 class="task-item-header">{{task?.title}}</h3>
-<span>{{task?.description}}</span>
-<input type="checkbox" [checked]="task?.completed"/>
+<h3 [ngClass]="task.completed ? 'strikethrough' : 'null'" class="task-item-header"> {{" " + task.title + " "}}</h3>
+<span [ngClass]="task.completed ? 'strikethrough' : 'null'" >{{task.description}}</span>
+<div 
+    [ngClass]="task.completed ? 'task-item-complete-indicator active' : 'task-item-complete-indicator inactive'"
+    (click)="toggleComplete()"
+></div>
 <div class="task-item-update-timestamp">
-    Updated at: {{task?.updatedAt}}
+    Updated at: {{translateDate()}}
 </div>

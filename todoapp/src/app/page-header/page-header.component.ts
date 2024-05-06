@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataFetcherService } from '../services/data-fetcher.service';
+import { DataUtilService } from '../services/data-util.service';
 
 @Component({
   selector: 'app-page-header',
@@ -12,7 +12,7 @@ export class PageHeaderComponent {
   totalTasks: number = 0;
   incompleteTasks: number = 0;
 
-  constructor (private data: DataFetcherService) { 
+  constructor (private data: DataUtilService) { 
     this.data.numberOfTasks.subscribe((value: number) => {
       this.totalTasks = value;
     })

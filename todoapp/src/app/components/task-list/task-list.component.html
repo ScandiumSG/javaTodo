@@ -1,3 +1,8 @@
 <div class="task-list-container">
-    <app-task-item class="task-list-item" [task]="task" *ngFor="let task of dataList"/>
+    <app-task-item 
+        class="task-list-item" 
+        (updatedTask)="changeTask($event)"
+        [task]="task" 
+        *ngFor="let task of dataList"
+    />
 </div>

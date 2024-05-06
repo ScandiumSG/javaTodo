@@ -21,7 +21,7 @@
     align-items: center;
 
     position: relative;
-
+    overflow: hidden;
 
     border: solid 1px gray;
     border-radius: 30px;

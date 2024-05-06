@@ -4,3 +4,11 @@ body, p, span, div {
     border: 0px;
     padding: 0px;
 }
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+h3 > .strikethrough {
+    font-weight: 100;
+}
