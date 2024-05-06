@@ -1,12 +1,9 @@
-FROM amazoncorretto:22 as build
-WORKDIR /app
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
-COPY ./src ./src
-RUN ./mvnw clean install
+FROM maven:3.9.6-amazoncorretto-21 as build
+COPY ./src /src
+COPY pom.xml .
+RUN mvn clean install
 
-FROM amazoncorretto:22 as initialize
+FROM amazoncorretto:21 as start
 VOLUME /tmp
-COPY target/*.jar app.jar
+COPY --from=build target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
