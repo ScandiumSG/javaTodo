@@ -36,6 +36,9 @@ export class TaskItemComponent {
       month: "numeric",
       day: "numeric"
     }
+    if (dateDiff < (1000*60*60*24)) {
+      return updateDate.getHours()+":"+updateDate.getMinutes();
+    }
     return updateDate.toLocaleDateString("no-BM", options);
   }
 }

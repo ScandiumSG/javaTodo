@@ -10,7 +10,7 @@ import { Task } from '../../../utils/interfaces';
   styleUrl: './options-menu.component.css'
 })
 export class OptionsMenuComponent {
-  public showOptions: boolean = !false;
+  public showOptions: boolean = false;
   @Output() deleteTask = new EventEmitter();
 
   toggleOptions(): void {
