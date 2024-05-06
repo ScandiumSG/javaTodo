@@ -1,5 +1,5 @@
 <h3 [ngClass]="task.completed ? 'strikethrough' : 'null'" class="task-item-header"> {{" " + task.title + " "}}</h3>
-<span [ngClass]="task.completed ? 'strikethrough' : 'null'" >{{task.description}}</span>
+<span [ngClass]="task.completed ? 'task-item-description strikethrough' : 'task-item-description'" >{{task.description}}</span>
 <div 
     [ngClass]="task.completed ? 'task-item-complete-indicator active' : 'task-item-complete-indicator inactive'"
     (click)="toggleComplete()"

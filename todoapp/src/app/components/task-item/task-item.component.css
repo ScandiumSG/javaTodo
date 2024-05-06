@@ -9,6 +9,18 @@
     left: 2%;
 }
 
+.task-item-header {
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+.task-item-description {
+    padding-left: 10%;
+    padding-right: calc(10% - 10px);
+    padding-bottom: 10px;
+    overflow: wrap;
+}
+
 .task-item-complete-indicator {
     box-sizing: border-box;
 
