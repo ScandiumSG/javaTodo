@@ -1,21 +1,27 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../utils/interfaces';
+import { OptionsMenuComponent } from './options-menu/options-menu.component';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, OptionsMenuComponent],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css'
 })
 export class TaskItemComponent {
   @Input() task!: Task;
   @Output() updatedTask = new EventEmitter<Task>();
+  @Output() deleteTask = new EventEmitter<Task>();
 
   public toggleComplete(): void {
     this.task.completed = !this.task.completed;
     this.updatedTask.emit(this.task);
+  }
+
+  removeTask(): void {
+    this.deleteTask.emit(this.task);
   }
 
   public translateDate(): string {

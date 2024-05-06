@@ -2,6 +2,7 @@
     <app-task-item 
         class="task-list-item" 
         (updatedTask)="changeTask($event)"
+        (deleteTask)="deleteTask($event)"
         [task]="task" 
         *ngFor="let task of dataList"
     />

@@ -1,0 +1,18 @@
+<div (click)="toggleOptions()" [ngClass]=" showOptions ? 'options-menu-image-container active' : 'options-menu-image-container'">
+    <img 
+        class="options-menu-image"
+        src="https://uxwing.com/wp-content/themes/uxwing/download/web-app-development/ellipsis-v-icon.png"
+        
+    />
+</div>
+<div
+    *ngIf="showOptions"
+    class="options-menu"
+>
+    <div class="options-menu-edit">
+        <span>Edit</span>
+    </div>
+    <div class="options-menu-delete" (click)="deleteItem()">
+        <span>Delete</span>
+    </div>
+</div>

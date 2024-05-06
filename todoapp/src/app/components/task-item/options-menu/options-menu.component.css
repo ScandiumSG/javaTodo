@@ -1,0 +1,46 @@
+.options-menu-image-container {
+    height: 20px;
+    width: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.options-menu-image-container:hover, .options-menu-image-container.active {
+    background-color: lightgray;
+}
+
+.options-menu-image {
+    height: 80%;
+}
+
+.options-menu {
+    z-index: 5;
+}
+
+.options-menu > div {
+    border: 1px gray solid;
+    width: 80px;
+
+    display: flex;
+    align-items: center;
+
+    height: 0.9rem;
+    margin-left: 5px;
+
+    cursor: pointer;
+}
+
+.options-menu > div > span {
+    font-size: 0.8rem;
+}
+
+.options-menu-edit:hover {
+    background-color: lightblue;
+}
+
+.options-menu-delete:hover {
+    background-color: rgb(255, 8, 8);
+}

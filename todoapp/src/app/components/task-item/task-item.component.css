@@ -39,3 +39,11 @@
 .task-item-complete-indicator.inactive {
     background-color: lightslategray;
 }
+
+.task-kebab-menu {
+    position: absolute;
+    top: 6px;
+    left: 16px;
+
+    display: flex;
+}

@@ -25,11 +25,19 @@ export class TaskListComponent {
     })
   }
 
+  deleteTask(taskToBeDeleted: Task) {
+    const list = this.dataList.filter(task => task.id != taskToBeDeleted.id);
+    this.dataList = list;
+
+    this.data.deleteData(taskToBeDeleted);
+  }
+
   changeTask(updatedTask: Task) {
     const list = this.dataList.filter(task => task.id != updatedTask.id);
     list.push(updatedTask);
     list.sort((a, b) => a.id - b.id);
     this.dataList = list;
     this.dataUtils.updateUtils(list);
+    this.data.putData(updatedTask);
   }
 }

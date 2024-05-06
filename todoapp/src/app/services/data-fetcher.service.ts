@@ -23,16 +23,34 @@ export class DataFetcherService implements OnDestroy {
     .subscribe({error: (e) => console.log(e)});
   }
 
+  putData(updatedTask: Task): void {
+    this.http.put<Task>(this.baseUrl, updatedTask).subscribe({
+      next: () => {
+        this.fetchData();
+      },
+      error: (err) => {
+        console.error("Error: ", err)
+      }
+    })
+  }
+
   postData(newTask: PostTask): void {
     this.http.post<Task>(this.baseUrl, newTask).subscribe({
-      next: (res) => {
-        console.log(res); 
+      next: () => {
         this.fetchData(); // refetch data
       },
-      error: (error) => {
-        console.error('Error:', error); 
+      error: (err) => {
+        console.error("Error: ", err); 
       }
     });
+  }
+
+  deleteData(task: Task): void {
+    this.http.delete<Task>(this.baseUrl.concat(task.id.toString())).subscribe({
+      next: () => {
+        this.fetchData();
+      }
+    })
   }
 
   ngOnDestroy(): void {
