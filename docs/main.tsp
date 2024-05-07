@@ -12,20 +12,103 @@ using TypeSpec.Rest;
 namespace TodoList;
 
 
-@route("/task/v2/")
+@tag("TodoList v2")
 namespace Tasks {
-    @get op getAll(
-        @header accept: string): {
+    @route("/task/v2/")
+    @summary("GET ALL")
+    @doc("Retrieve all tasks")
+    @get op RetrieveAll(): {
             @statusCode statusCode: 200; 
-            @body tasks: Task[];
+            @body tasks: pureModels.Task[];
+        } | {
+            @statusCode statusCode: 204;
+            @body "No content": DTOModels.noContent[];
         };
+
+    @route("/task/v2/{id}")
+    @summary("GET")
+    @doc("Retrieve all tasks")
+    @get op Retrieve(
+        @path id: integer;
+    ): {
+            @statusCode statusCode: 200; 
+            @body tasks: pureModels.Task;
+        } | {
+            @statusCode statusCode: 404;
+            @body "Not found": errors.notFound;
+        };
+
+    @route("/task/v2/")
+    @summary("POST")
+    @doc("Create a new task")
+    @post op Create(
+        @body PostTask: DTOModels.PostTask): {
+            @statusCode statusCode: 201;
+            @body task: pureModels.Task;
+        }| {
+            @statusCode statusCode: 403;
+            @body "Bad request": errors.badRequest;
+        };
+
+    @route("/task/v2/")
+    @summary("PUT")
+    @doc("Update a task value")
+    @put op Update(
+        @body PostTask: pureModels.Task): {
+            @statusCode statusCode: 201;
+            @body task: pureModels.Task;
+        } | {
+            @statusCode statusCode: 404,
+            @body "Not found": errors.notFound;
+        };
+
+    @route("/task/v2/{id}")
+    @summary("DELETE")
+    @doc("Delete a task with the provided id")
+    @delete op Delete(
+        @path id: integer;
+    ): {
+        @statusCode statusCode: 200;
+        @body "Deleted task with ID %d": string;
+    };
 }
 
-model Task {
-    id: int64;
-    title: string;
-    description: string,
-    completed: boolean;
-    createdAt: utcDateTime;
-    updatedAt: utcDateTime;
+
+
+namespace pureModels{
+    model Task {
+        id: int64;
+        title: string;
+        description: string,
+        completed: boolean;
+        createdAt: utcDateTime;
+        updatedAt: utcDateTime;
+    }
+
+
+}
+
+namespace DTOModels {
+    model PostTask {
+        title: string;
+        description: string,
+    }
+
+    model noContent {
+
+    }
+}
+
+namespace errors {
+    @error
+    model notFound {
+        code: 404,
+        message: "Not found",
+    }
+
+    @error
+    model badRequest {
+        code: 403,
+        message: "Bad request",
+    }
 }

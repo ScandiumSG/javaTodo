@@ -5,7 +5,7 @@
   "scripts": {
     "generate": "npm install && npm run typespec_gen && npm run redocly",
     "typespec_gen": "tsp compile .",
-    "redocly": "redocly build-docs ./tsp-output/@typespec/openapi3/openapi.yaml"
+    "redocly": "redocly build-docs ./tsp-output/@typespec/openapi3/openapi.yaml -o api-specs.html"
   },
   "dependencies": {
     "@redocly/cli": "^1.12.0",
