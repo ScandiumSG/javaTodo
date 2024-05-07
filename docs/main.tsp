@@ -69,7 +69,7 @@ namespace Tasks {
         @path id: integer;
     ): {
         @statusCode statusCode: 200;
-        @body "Deleted task with ID %d": string;
+        @body nothing: {};
     };
 }
 
