@@ -1,14 +1,28 @@
-<h3 [ngClass]="task.completed ? 'strikethrough' : 'null'" class="task-item-header"> {{" " + task.title + " "}}</h3>
 <app-options-menu 
     class="task-kebab-menu" 
     (deleteTask)="removeTask()"
     (allowUpdates)="allowTaskEdit($event)"
 />
+<input 
+    class="task-item-header"
+    [ngClass]="task.completed ? 
+        editable ? 'strikethrough highlight-border' : 'strikethrough' : 
+        editable ? 'highlight-border' : 'null'
+        " 
+    [ngModel]="task.title"
+    [readonly]="!editable"
+    (ngModelChange)="handleChange('title', $event)"
+    id="title"
+/>
 <textarea 
-    [ngClass]="task.completed ? 'task-item-description strikethrough' : 'task-item-description'" 
+    [rows]="3"
+    #taskDescription
+    [ngClass]="task.completed ? 
+        editable ? 'task-item-description strikethrough highlight-border' : 'task-item-description strikethrough' : 
+        editable ? 'task-item-description highlight-border' : 'task-item-description'" 
     [ngModel]="task.description"
     [readonly]="!editable"
-    (ngModelChange)="handleChange($event)"
+    (ngModelChange)="handleChange('description', $event)"
     id="description"
 ></textarea>
 <div 
@@ -17,4 +31,16 @@
 ></div>
 <div class="task-item-update-timestamp">
     Changed: {{translateDate()}}
+</div>
+<div class="task-item-confirm-option-container">
+    <div 
+        [ngClass]="editable ? 'task-item-edit-buttons-container' : 'task-item-edit-buttons-container hidden'"
+    >  
+        <button (click)="cancelTaskEdit()">
+            Cancel
+        </button>
+        <button (click)="updateTask()">
+            Confirm
+        </button>
+    </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, InputFunction, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../utils/interfaces';
 import { OptionsMenuComponent } from './options-menu/options-menu.component';
@@ -16,25 +16,36 @@ export class TaskItemComponent {
   @Input() task!: Task;
   @Output() updatedTask = new EventEmitter<Task>();
   @Output() deleteTask = new EventEmitter<Task>();
+  @ViewChild('taskDescription') taskDescription!: ElementRef;
+  private taskCopy: Task = this.task;
 
   toggleComplete(): void {
     this.task.completed = !this.task.completed;
     this.updatedTask.emit(this.task);
   }
 
-  handleChange(event: Event): void {
-    if (event && event.target) {
-      const { id, value } = event.target as HTMLInputElement;
-      this.task = {...this.task, [id]: value}
-    }
+  handleChange(id: string, event: Event): void {
+    this.task = {...this.task, [id]: event}
   }
 
   allowTaskEdit(value: boolean): void {
-    console.log(this.task.title.concat(" editable").concat(String(value)))
+    this.taskCopy = this.task;
     this.editable = value;
+    if (this.editable) {
+      setTimeout(() => {
+        this.taskDescription.nativeElement.focus();
+      }, 0)
+    }
+    
+  }
+
+  cancelTaskEdit(): void {
+    this.task = this.taskCopy;
+    this.editable = false;
   }
 
   updateTask(): void {
+    console.log(this.task);
     this.editable = false;
     this.updatedTask.emit(this.task)
   }

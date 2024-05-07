@@ -10,8 +10,15 @@
 }
 
 .task-item-header {
+    width: calc(100% - 20%);
+    margin-right: calc(5% - 10px);
+    border: none;
+
     margin-top: 2px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
+    font-size: 1.20rem;
+    font-weight: 600;
+    text-align: center;
 }
 
 .task-item-description {
@@ -52,4 +59,24 @@
     left: 16px;
 
     display: flex;
+}
+
+.task-item-edit-buttons-container.hidden {
+    display: none;
+}
+
+.task-item-edit-buttons-container {
+    position: absolute;
+    top: 77%;
+    left: 35%;
+}
+
+.task-item-edit-buttons-container > button {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.highlight-border {
+    border: 1px solid gray;
+    border-radius: 10px;
 }

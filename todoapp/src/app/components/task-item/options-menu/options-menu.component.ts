@@ -20,10 +20,12 @@ export class OptionsMenuComponent {
 
   allowItemUpdate(value: boolean): void {
     this.allowUpdates.emit(value);
+    this.showOptions = false;
   }
 
   deleteItem(): void {
     this.deleteTask.emit();
+    this.showOptions = false;
   }
   
 }
