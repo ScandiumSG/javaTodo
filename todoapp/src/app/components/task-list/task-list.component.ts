@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DataFetcherService } from '../../services/data-fetcher.service';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../utils/interfaces';
@@ -18,6 +18,8 @@ import { PostTaskComponent } from '../post-task/post-task.component';
 
 export class TaskListComponent {
   dataList: Array<Task> = [];
+  id!: number;
+  @Output() allowedModifier: EventEmitter<number> = new EventEmitter<number>();
 
   constructor (private data: DataFetcherService, private dataUtils: DataUtilService) {
     this.data.recievedData.subscribe((value: Task[]) => {

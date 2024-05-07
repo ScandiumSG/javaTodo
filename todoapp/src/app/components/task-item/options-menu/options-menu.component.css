@@ -20,6 +20,10 @@
     z-index: 5;
 }
 
+.options-menu > * > img {
+    height: 0.8rem;
+}
+
 .options-menu > div {
     border: 1px gray solid;
     width: 80px;

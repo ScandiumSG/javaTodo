@@ -61,17 +61,17 @@
     display: flex;
 }
 
-.task-item-edit-buttons-container.hidden {
+.hidden {
     display: none;
 }
 
-.task-item-edit-buttons-container {
+.task-item-edit-buttons-container, .task-item-delete-buttons-container {
     position: absolute;
     top: 77%;
     left: 35%;
 }
 
-.task-item-edit-buttons-container > button {
+.task-item-edit-buttons-container > button, .task-item-delete-buttons-container > button {
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -79,4 +79,20 @@
 .highlight-border {
     border: 1px solid gray;
     border-radius: 10px;
+}
+
+.task-item-confirm-option-container > * > button {
+    border-radius: 4px;
+}
+
+.task-item-cancel-button:hover {
+    background: lightcyan;
+}
+
+.task-item-update-button:hover {
+    background: lightgreen;
+}
+
+.task-item-delete-button:hover {
+    background: crimson;
 }

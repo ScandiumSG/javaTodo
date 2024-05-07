@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Task } from '../../utils/interfaces';
 import { OptionsMenuComponent } from './options-menu/options-menu.component';
 import { FormsModule } from '@angular/forms';
+import { ModifierServiceService } from '../../services/modifier-service.service';
 
 @Component({
   selector: 'app-task-item',
@@ -11,13 +12,32 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css'
 })
-export class TaskItemComponent {
+export class TaskItemComponent{
+  canModify: boolean = false;
   editable: boolean = false;
+  allowDelete: boolean = false;
   @Input() task!: Task;
   @Output() updatedTask = new EventEmitter<Task>();
   @Output() deleteTask = new EventEmitter<Task>();
   @ViewChild('taskDescription') taskDescription!: ElementRef;
   private taskCopy: Task = this.task;
+
+  constructor(private modifier: ModifierServiceService) {
+    modifier.allowedModifier.subscribe((value) => {
+      if (!this.task) {return;}
+      if (this.task.id == value) {
+        this.canModify = true;
+      } else {
+        if (this.editable) {
+          this.cancelTaskEdit();
+        }
+        if (this.allowDelete) {
+          this.cancelDeleteTask();
+        }
+        this.canModify = false;
+      }
+    })
+  }
 
   toggleComplete(): void {
     this.task.completed = !this.task.completed;
@@ -29,8 +49,10 @@ export class TaskItemComponent {
   }
 
   allowTaskEdit(value: boolean): void {
+    this.cancelDeleteTask();
     this.taskCopy = this.task;
     this.editable = value;
+    this.modifier.setModifier(this.task.id);
     if (this.editable) {
       setTimeout(() => {
         this.taskDescription.nativeElement.focus();
@@ -38,16 +60,26 @@ export class TaskItemComponent {
     }
     
   }
-
+  
   cancelTaskEdit(): void {
     this.task = this.taskCopy;
     this.editable = false;
   }
 
   updateTask(): void {
-    console.log(this.task);
     this.editable = false;
+    this.taskCopy = this.task;
     this.updatedTask.emit(this.task)
+  }
+
+  allowDeleteTask(): void {
+    this.modifier.setModifier(this.task.id);
+    this.allowDelete = true;
+    this.editable = false;
+  }
+
+  cancelDeleteTask(): void {
+    this.allowDelete = false;
   }
 
   removeTask(): void {

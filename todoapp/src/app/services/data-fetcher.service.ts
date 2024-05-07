@@ -37,7 +37,7 @@ export class DataFetcherService implements OnDestroy {
   postData(newTask: PostTask): void {
     this.http.post<Task>(this.baseUrl, newTask).subscribe({
       next: () => {
-        //this.fetchData(); // refetch data
+        this.fetchData(); // refetch data
       },
       error: (err) => {
         console.error("Error: ", err); 

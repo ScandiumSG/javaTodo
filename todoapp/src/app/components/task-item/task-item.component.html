@@ -1,6 +1,6 @@
 <app-options-menu 
     class="task-kebab-menu" 
-    (deleteTask)="removeTask()"
+    (deleteTask)="allowDeleteTask()"
     (allowUpdates)="allowTaskEdit($event)"
 />
 <input 
@@ -36,11 +36,21 @@
     <div 
         [ngClass]="editable ? 'task-item-edit-buttons-container' : 'task-item-edit-buttons-container hidden'"
     >  
-        <button (click)="cancelTaskEdit()">
+        <button class="task-item-cancel-button" (click)="cancelTaskEdit()">
             Cancel
         </button>
-        <button (click)="updateTask()">
-            Confirm
+        <button class="task-item-update-button" (click)="updateTask()">
+            Update
         </button>
     </div>
+    <div 
+        [ngClass]="allowDelete ? 'task-item-delete-buttons-container' : 'task-item-delete-buttons-container hidden'"
+    >  
+    <button class="task-item-cancel-button" (click)="cancelDeleteTask()">
+        Cancel
+    </button>
+    <button class="task-item-delete-button" (click)="removeTask()">
+        Delete
+    </button>
+</div>
 </div>
