@@ -12,9 +12,14 @@ import { Task } from '../../../utils/interfaces';
 export class OptionsMenuComponent {
   public showOptions: boolean = false;
   @Output() deleteTask = new EventEmitter();
+  @Output() allowUpdates = new EventEmitter<boolean>();
 
   toggleOptions(): void {
     this.showOptions = !this.showOptions;
+  }
+
+  allowItemUpdate(value: boolean): void {
+    this.allowUpdates.emit(value);
   }
 
   deleteItem(): void {

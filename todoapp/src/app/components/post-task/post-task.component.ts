@@ -27,7 +27,6 @@ export class PostTaskComponent {
     if (event && event.target) {
       const { id, value } = event.target as HTMLInputElement;
       this.newTask = {...this.newTask, [id]: value}
-      console.log(this.newTask);
     }
   }
 

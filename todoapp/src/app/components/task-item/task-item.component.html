@@ -1,6 +1,16 @@
 <h3 [ngClass]="task.completed ? 'strikethrough' : 'null'" class="task-item-header"> {{" " + task.title + " "}}</h3>
-<app-options-menu class="task-kebab-menu" (deleteTask)="removeTask()"/>
-<span [ngClass]="task.completed ? 'task-item-description strikethrough' : 'task-item-description'" >{{task.description}}</span>
+<app-options-menu 
+    class="task-kebab-menu" 
+    (deleteTask)="removeTask()"
+    (allowUpdates)="allowTaskEdit($event)"
+/>
+<textarea 
+    [ngClass]="task.completed ? 'task-item-description strikethrough' : 'task-item-description'" 
+    [ngModel]="task.description"
+    [readonly]="!editable"
+    (ngModelChange)="handleChange($event)"
+    id="description"
+></textarea>
 <div 
     [ngClass]="task.completed ? 'task-item-complete-indicator active' : 'task-item-complete-indicator inactive'"
     (click)="toggleComplete()"

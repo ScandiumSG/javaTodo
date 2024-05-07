@@ -15,10 +15,15 @@
 }
 
 .task-item-description {
-    padding-left: 10%;
-    padding-right: calc(10% - 10px);
-    padding-bottom: 10px;
-    overflow: wrap;
+    margin-right: calc(5% - 10px);
+    border: none;
+
+    width: calc(100% - 20%);
+    resize: none;
+    height: fit-content;
+
+    display: flex;
+    justify-content: left;
 }
 
 .task-item-complete-indicator {
@@ -29,6 +34,7 @@
     right: 0%;
 
     width: 10%;
+    min-width: 40px;
     height: 100%;
 }
 

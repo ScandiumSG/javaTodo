@@ -1,8 +1,8 @@
-<div *ngIf="!showPostForm">
+<div *ngIf="!showPostForm" class="post-item-button-container">
     <img class="post-item-show-button" src="https://uxwing.com/wp-content/themes/uxwing/download/education-school/math-plus-icon.png" (click)="showForm()">
 </div>
 <div *ngIf="showPostForm" class="post-task-container">
-    <p class="post-task-container-title">Add new task!</p>
+    <p class="post-task-container-title">Creating new task</p>
     <div class="post-task-input-container">
         <span>Title: </span>
         <input type="text" id="title" (change)="handleChange($event)" value={{newTask.title}}>

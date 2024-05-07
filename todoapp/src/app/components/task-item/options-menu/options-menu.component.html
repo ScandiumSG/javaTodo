@@ -9,7 +9,7 @@
     *ngIf="showOptions"
     class="options-menu"
 >
-    <div class="options-menu-edit">
+    <div class="options-menu-edit" (click)="allowItemUpdate(true)">
         <span>Edit</span>
     </div>
     <div class="options-menu-delete" (click)="deleteItem()">
