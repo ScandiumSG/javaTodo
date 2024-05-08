@@ -5,7 +5,7 @@
     padding-top: inherit;
 
     display: grid;
-    grid-template-columns: 400px 400px 400px;
+    grid-template-columns: minmax(28%, 380px) minmax(28%, 380px) minmax(28%, 380px);
     grid-auto-rows: 1fr;
     column-gap: 50px;
     row-gap: 50px;
@@ -36,20 +36,20 @@
 
 @media only screen and (max-width: 1350px) {
     .task-list-container {
-        grid-template-columns: 450px 450px;
+        grid-template-columns: minmax(45%, 450px) minmax(45%, 450px);
     }
 }
 
 @media only screen and (max-width: 1000px) {
     .task-list-container {
-        grid-template-columns: 450px;
+        grid-template-columns: minmax(90%, 450px);
         row-gap: 20px;
     }
 }
 
 @media only screen and (max-width: 450px) {
     .task-list-container {
-        grid-template-columns: 100vw;
+        grid-template-columns: minmax(200px, 100vw);
         row-gap: 20px;
 
         overflow: visible;

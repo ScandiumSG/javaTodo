@@ -12,3 +12,7 @@ body, p, span, div {
 h3 > .strikethrough {
     font-weight: 100;
 }
+
+.hidden {
+    display: none;
+}

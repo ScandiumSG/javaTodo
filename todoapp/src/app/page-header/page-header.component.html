@@ -1,6 +1,15 @@
 <header class="page-header">
-    <div class="header-container">
-        <p class="header-content left">Total tasks: {{totalTasks}}</p>
-        <p class="header-content right">{{incompleteTasks}} incomplete tasks</p>
+    <div class="header-container left">
+        <p class="header-content main">
+            <span class="hideable">Tasks remaining: </span>
+            <span>{{incompleteTasks}}</span>
+        </p>
+        <p class="header-content details">
+            <span class="hideable">Total tasks:</span> 
+            <span>{{totalTasks}}</span>
+        </p>
+    </div>
+    <div class="right">
+        Nothing
     </div>
 </header>
