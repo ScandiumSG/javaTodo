@@ -3,7 +3,7 @@ import { DataFetcherService } from '../../services/data-fetcher.service';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../utils/interfaces';
 import { TaskItemComponent } from '../task-item/task-item.component';
-import { DataUtilService } from '../../services/data-util.service';
+import { DataUtilService } from '../../page-header/header-service/data-util.service';
 import { PostTaskComponent } from '../post-task/post-task.component';
 
 @Component({
@@ -19,7 +19,6 @@ import { PostTaskComponent } from '../post-task/post-task.component';
 export class TaskListComponent {
   dataList: Array<Task> = [];
   id!: number;
-  @Output() allowedModifier: EventEmitter<number> = new EventEmitter<number>();
 
   constructor (private data: DataFetcherService, private dataUtils: DataUtilService) {
     this.data.recievedData.subscribe((value: Task[]) => {

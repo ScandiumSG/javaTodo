@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ModifierServiceService } from './modifier-service.service';
+import { ModifierServiceService } from './task-manager-service.service';
 
 describe('ModifierServiceService', () => {
   let service: ModifierServiceService;

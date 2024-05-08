@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Task } from '../../../utils/interfaces';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { TaskManagerService } from '../task-services/task-manager-service.service';
 
 @Component({
   selector: 'app-options-menu',
@@ -11,11 +11,21 @@ import { Task } from '../../../utils/interfaces';
 })
 export class OptionsMenuComponent {
   public showOptions: boolean = false;
+  @Input() parentTaskID!: number;
   @Output() deleteTask = new EventEmitter();
   @Output() allowUpdates = new EventEmitter<boolean>();
 
+  constructor(private taskManager: TaskManagerService) {
+    this.taskManager.taskOptionsMenuManager.subscribe((id) => {
+      if (this.parentTaskID != id) {
+        this.showOptions = false;
+      }
+    })
+  }
+
   toggleOptions(): void {
-    this.showOptions = !this.showOptions;
+    this.taskManager.setMenuManager(this.parentTaskID)
+    this.showOptions = true;
   }
 
   allowItemUpdate(value: boolean): void {
@@ -28,4 +38,5 @@ export class OptionsMenuComponent {
     this.showOptions = false;
   }
   
+
 }

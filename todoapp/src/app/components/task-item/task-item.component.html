@@ -1,5 +1,6 @@
 <app-options-menu 
     class="task-kebab-menu" 
+    [parentTaskID]="task.id"
     (deleteTask)="allowDeleteTask()"
     (allowUpdates)="allowTaskEdit($event)"
 />

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { DataFetcherService } from '../../services/data-fetcher.service';
 import { PostTask } from '../../utils/interfaces';
 import { CommonModule } from '@angular/common';
+import { TaskManagerService } from '../task-item/task-services/task-manager-service.service';
 
 @Component({
   selector: 'app-post-task',
@@ -32,10 +33,12 @@ export class PostTaskComponent {
 
   handleSubmit(): void {
     if (this.newTask.title != "" && this.newTask.description != "") {
+
       this.service.postData(this.newTask);
       this.newTask.title = "";
       this.newTask.description = "";
       this.showPostForm = false;
     }
   }
+
 }

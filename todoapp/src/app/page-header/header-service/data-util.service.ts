@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { DataFetcherService } from './data-fetcher.service';
-import { Task } from '../utils/interfaces';
+import { DataFetcherService } from '../../services/data-fetcher.service';
+import { Task } from '../../utils/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataUtilService {
+export class DataUtilService implements OnDestroy {
   public numberOfTasks: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public numberOfIncompleteTasks: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
@@ -20,5 +20,9 @@ export class DataUtilService {
    updateUtils(data: Array<Task>) {
     this.numberOfTasks.next(data.length);
     this.numberOfIncompleteTasks.next(data.filter(task => !task.completed).length)
+   }
+
+   ngOnDestroy(): void {
+     this.data.recievedData.unsubscribe();
    }
 }
