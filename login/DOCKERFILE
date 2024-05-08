@@ -1,0 +1,9 @@
+FROM maven:3.9.6-amazoncorretto-21 as build
+COPY ./src /src
+COPY pom.xml .
+RUN mvn clean install
+
+FROM amazoncorretto:21 as start
+VOLUME /tmp
+COPY --from=build target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
