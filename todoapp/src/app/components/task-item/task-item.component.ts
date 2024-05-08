@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, InputFunction, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../utils/interfaces';
 import { OptionsMenuComponent } from './options-menu/options-menu.component';
@@ -13,16 +13,19 @@ import { TaskManagerService } from './task-services/task-manager-service.service
   styleUrl: './task-item.component.css'
 })
 export class TaskItemComponent implements OnInit {
-  canModify: boolean = false;
-  editable: boolean = false;
-  allowDelete: boolean = false;
   @Input() task!: Task;
   @Output() updatedTask = new EventEmitter<Task>();
   @Output() deleteTask = new EventEmitter<Task>();
   @ViewChild('taskDescription') taskDescription!: ElementRef;
+
+  canModify: boolean = false;
+  editable: boolean = false;
+  allowDelete: boolean = false;
+
   private taskCopy: Task = this.task;
   
-  constructor(private modifier: TaskManagerService) {}
+  constructor(private modifier: TaskManagerService) {
+  }
 
   ngOnInit(): void {
     this.modifier.currentModifiableTask.subscribe((value) => {
@@ -90,8 +93,9 @@ export class TaskItemComponent implements OnInit {
   }
 
   translateDate(): string {
-    const currentDate: number = new Date().getTime();
-    const updateDate: Date = new Date(this.task.updatedAt);
+    const currentDate: number = new Date(new Date().toUTCString()).getTime() + new Date(new Date().toUTCString()).getTimezoneOffset()*60*1000;    let updateDate: Date = new Date(this.task.updatedAt);
+    const updateDateUTC: number = updateDate.getTime() - updateDate.getTimezoneOffset() * 60 * 1000;
+    updateDate = new Date(updateDateUTC);
     const dateDiff: number = currentDate - updateDate.getTime();
 
     const TimeOptions: Intl.DateTimeFormatOptions = {
@@ -105,12 +109,10 @@ export class TaskItemComponent implements OnInit {
       year: "numeric",
     }
 
-    
-    if (dateDiff < (1000*60*60*24)) {
+    if (dateDiff < (1000*60*60*12)) {
       return updateDate.toLocaleTimeString("no-BM", TimeOptions).substring(0,5);
+    } else {
+      return updateDate.toLocaleDateString("no-BM", DateOptions);
     }
-    return updateDate.toLocaleDateString("no-BM", DateOptions);
   }
-
-
 }
