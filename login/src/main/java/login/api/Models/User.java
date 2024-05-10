@@ -55,12 +55,12 @@ public class User {
     private int age;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="admin", updatable = true, nullable = false)
+    @Column(name="role", updatable = true, nullable = false)
     private ERole role;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Role> roles = new HashSet<>();
 
-    @Column(name="created_at", updatable = false, nullable = false)
+    @Column(name="created_at", updatable = false, nullable = true)
     private LocalDateTime createdAt;
 }
