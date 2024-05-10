@@ -27,6 +27,7 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(UUID id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+        System.out.println("UserDetailsImpl.java");
         this.id = id;
         this.username = username;
         this.email = email;

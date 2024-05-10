@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("auth")
+@RequestMapping("auth/")
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -45,7 +45,7 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
+    @PostMapping("signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         // If using a salt for password use it here
         Authentication authentication = authenticationManager
@@ -60,10 +60,9 @@ public class AuthController {
                 .ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
-    @PostMapping("/signup")
+    @PostMapping("signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
-        return ResponseEntity.ok().body(new MessageResponse("What"));
-        /*
+        System.out.println("Attemped to sign up");
         if (userRepo.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken"));
         }
@@ -95,6 +94,5 @@ public class AuthController {
         user.setRoles(roles);
         userRepo.save(user);
         return ResponseEntity.ok((new MessageResponse("User registered successfully")));
-         */
     }
 }
