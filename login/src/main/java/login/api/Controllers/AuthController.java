@@ -51,12 +51,18 @@ public class AuthController {
         // If using a salt for password use it here
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        System.out.println("1");
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println("2");
+        // Error occur after this
+        // Error: io.jsonwebtoken.lang.UnknownClassException: Unable to find an implementation for interface io.jsonwebtoken.io.Serializer using java.util.ServiceLoader. Ensure you include a backing implementation .jar in the classpath, for example jjwt-impl.jar, or your own .jar for custom implementations.] with root cause
         String jwt = jwtUtils.generateJwtToken(authentication);
-
+        System.out.println("3");
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        System.out.println("4");
         List<String> roles = userDetails.getAuthorities().stream().map((item) -> item.getAuthority())
                 .collect(Collectors.toList());
+        System.out.println("5");
         return ResponseEntity
                 .ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }
