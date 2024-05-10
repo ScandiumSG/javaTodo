@@ -70,6 +70,7 @@ services:
         dockerfile: ./DOCKERFILE
       ports:
         - "9001:8080"
+        - "9002:8081"
       environment:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
