@@ -1,14 +1,16 @@
-package login.lib.security.jwt;
+package login.api.Security.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import login.api.Security.services.UserDetailsImpl;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import login.lib.security.services.UserDetailsImpl;
+
 import java.security.Key;
 import java.util.Date;
 

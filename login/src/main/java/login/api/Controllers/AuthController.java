@@ -1,4 +1,4 @@
-package login.lib.controllers;
+package login.api.Controllers;
 
 import login.api.Models.ERole;
 import login.api.Models.Role;
@@ -9,8 +9,8 @@ import login.api.Models.Response.JwtResponse;
 import login.api.Models.Response.MessageResponse;
 import login.api.Repository.RoleRepository;
 import login.api.Repository.UserRepo;
-import login.lib.security.jwt.JwtUtils;
-import login.lib.security.services.UserDetailsImpl;
+import login.api.Security.jwt.JwtUtils;
+import login.api.Security.services.UserDetailsImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
