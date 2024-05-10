@@ -62,7 +62,6 @@ public class AuthController {
 
     @PostMapping("signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
-        System.out.println("Attemped to sign up");
         if (userRepo.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken"));
         }
@@ -70,7 +69,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
         // Create a new user add salt here if using one
-        User user = new User(null, signupRequest.getUsername(), signupRequest.getEmail(), encoder.encode(signupRequest.getPassword()), null, null, 0, null, null, null);
+        User user = new User(null, signupRequest.getUsername(), signupRequest.getEmail(), encoder.encode(signupRequest.getPassword()), null, null, 0, null, null);
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
 

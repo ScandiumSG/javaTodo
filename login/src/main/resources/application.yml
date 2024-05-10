@@ -43,4 +43,4 @@ server:
 auth:
   app:
     jwtSecret: testStringtestStringtestStringtestStringtestStringtestStringtestStringtestStringtestStringtestString
-    jwtExperiationMs: 86400000
+    jwtExpirationMs: 86400000

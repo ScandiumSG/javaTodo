@@ -18,10 +18,10 @@ import java.util.Date;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${booleanuk.app.jwtSecret}")
+    @Value("${auth.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${booleanuk.app.jwtExpirationMs}")
+    @Value("${auth.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
