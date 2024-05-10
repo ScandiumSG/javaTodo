@@ -1,12 +1,12 @@
-# Log file location
-logging.file.name=logs/myapp.log
-
-# Log level for root logger (INFO, DEBUG, ERROR, etc.)
-logging.level.root=ERROR
-
-logging.level.org.springframework=INFO
-logging.level.org.springframework.jdbc.datasource=INFO
-logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+logging:
+  file:
+    name: logs/myapp.log
+  level:
+    root: ERROR
+    org.springframework: INFO
+    org.springframework.jdbc.datasource: ERROR
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
 spring:
   application:
@@ -30,6 +30,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+
+server:
+  port: 8081 # HTTPS port
+  ssl:
+    key-store: keystore.pfx  # Path to your keystore file
+    key-store-password: logintest  # Password used to protect the keystore
+    key-store-type: PKCS12  # Type of keystore, in this case, PKCS12
+    key-alias: testingKey  # Alias of the key within the keystore
+    enabled: true  # Enable SSL/TLS
 
 auth:
   app:
