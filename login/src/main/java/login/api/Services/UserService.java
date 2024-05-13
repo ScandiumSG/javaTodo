@@ -86,9 +86,4 @@ public class UserService {
     public void deleteUser(UUID id) {
         userRepo.deleteById(id);
     }
-
-    public void deleteUser(User user) {
-        deleteUser(user.getId());
-    }
-
 }
