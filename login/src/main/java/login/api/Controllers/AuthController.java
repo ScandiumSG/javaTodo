@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -91,6 +92,7 @@ public class AuthController {
             });
         }
         user.setRoles(roles);
+        user.setCreatedAt(LocalDateTime.now());
         userRepo.save(user);
         return ResponseEntity.ok((new MessageResponse("User registered successfully")));
     }

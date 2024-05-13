@@ -46,8 +46,9 @@ public class DatabaseSeeder implements CommandLineRunner {
     public void seedRoles() {
         if (roleRepo.count() == 0) {
             Role roleUser = new Role(ERole.ROLE_USER);
-            Role roleAdmin = new Role(ERole.ROLE_ADMIN);
-            roleRepo.saveAllAndFlush(Arrays.asList(roleUser, roleAdmin));
+            //Role roleAdmin = new Role(ERole.ROLE_ADMIN);
+            //roleRepo.saveAllAndFlush(Arrays.asList(roleUser, roleAdmin));
+            roleRepo.saveAllAndFlush(Arrays.asList(roleUser));
         }
     }
 
@@ -57,12 +58,13 @@ public class DatabaseSeeder implements CommandLineRunner {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role(ERole.ROLE_ADMIN));
 
+        String testPassword = "password";
         // Create a new User object
         User testUser = new User(
             id,
             "testuser",
             "test@test.test",
-            encoder.encode("password"),
+            encoder.encode(testPassword),
             "t",
             "est",
             42,
@@ -71,7 +73,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         );
 
         User savedUser = userRepo.saveAndFlush(testUser);
-        System.out.println(String.format("Seeded user with username: %s, password: %s", savedUser.getUsername(), savedUser.getPassword()));
+        System.out.println(String.format("Seeded user with username: %s, password: %s", savedUser.getUsername(), testPassword));
         
     }
 }
