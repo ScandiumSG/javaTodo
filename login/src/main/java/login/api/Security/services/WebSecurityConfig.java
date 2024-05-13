@@ -58,13 +58,9 @@ public class WebSecurityConfig {
                 .csrf((csrf) -> csrf.disable())
                 .exceptionHandling((exception) -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests((req) -> req.anyRequest().permitAll()); // Temporary to troubleshoot 401 issue
-                /*
-                .authorizeHttpRequests((requests) -> requests
+                .authorizeHttpRequests((req) -> req
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/task", "/task/**").authenticated()
                 );
-                */
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

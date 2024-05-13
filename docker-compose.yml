@@ -42,7 +42,7 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
-      start_period: 20s
+      start_period: 10s
 
   postgresdatabase:
     image: postgres:16
@@ -69,8 +69,7 @@ services:
         context: ./login/
         dockerfile: ./DOCKERFILE
       ports:
-        - "9001:8080"
-        - "9002:8081"
+        - "9081:8081"
       environment:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
@@ -93,6 +92,8 @@ services:
   userdatabase:
     image: postgres:16
     container_name: "userdatabase"
+    ports:
+      - "9999:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
