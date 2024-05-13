@@ -1,0 +1,13 @@
+<div *ngIf="true">
+    <span>Users not integrated</span>
+    <div *ngIf="userData === undefined">
+        <button (click)="submitLogin()">
+            Login
+        </button>
+    </div>
+    <div *ngIf="userData !== undefined">
+        <span>
+            {{userData.username.substring(0,1)}}
+        </span>
+    </div>
+</div>

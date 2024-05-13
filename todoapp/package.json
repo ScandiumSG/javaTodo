@@ -4,12 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start_ssr": "npm run build && npm run serve:ssr:todoapp --ssl",
     "dockerstart": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:todoapp": "node dist/todoapp/server/server.mjs",
-    "docker_serve": "npm run build && npm run serve:ssr:todoapp"
+    "docker_serve": "npm run build && npm run serve:ssr:todoapp --ssl"
   },
   "private": true,
   "dependencies": {

@@ -1,10 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { DataUtilService } from './header-service/data-util.service';
+import { UserOptionsComponent } from './user-options/user-options/user-options.component';
 
 @Component({
   selector: 'app-page-header',
   standalone: true,
-  imports: [],
+  imports: [UserOptionsComponent],
   templateUrl: './page-header.component.html',
   styleUrl: './page-header.component.css'
 })

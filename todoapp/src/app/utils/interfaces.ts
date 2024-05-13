@@ -11,3 +11,12 @@ export interface PostTask {
   title: string,
   description: string
 }
+
+export interface UserObject {
+  token: string,
+  type: string,
+  id: string,
+  username: string,
+  email: string, 
+  roles: string[]
+}
